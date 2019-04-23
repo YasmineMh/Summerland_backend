@@ -22,4 +22,9 @@ public class ImplBusinessHouse implements IBusinessHouse{
 		return (ArrayList<House>) houseRepository.findAll();
 	}
 
+	@Override
+	public void saveHouse(House house) {
+		houseRepository.save(house);
+	}
+
 }

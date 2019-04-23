@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "reactions")
 public class Reaction {
@@ -17,10 +19,12 @@ public class Reaction {
 	private String reaction_type;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="CUSTOMER")
 	private Customer customer;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="HOUSE")
 	private House house;
 

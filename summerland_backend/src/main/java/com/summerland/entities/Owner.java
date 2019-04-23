@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "owners")
 public class Owner {
@@ -24,7 +26,6 @@ public class Owner {
 	private String login;
 	private String email;
 	private String password;
-	private String owner_type;
 	private String name;
 	private String lastname;
 	private String telephone;
@@ -34,13 +35,16 @@ public class Owner {
 	private Byte[] image;
 	
 	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Message> messages;
 	
 	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	@Cascade(CascadeType.ALL)
 	private Collection<House> houses;
 
 	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Alert> alerts;
 	
 	
@@ -48,13 +52,12 @@ public class Owner {
 		super();
 	}
 
-	public Owner(String login, String email, String password, String ownertype, String name, String lastname, String telephone,
+	public Owner(String login, String email, String password, String name, String lastname, String telephone,
 			String address, Byte[] image) {
 		super();
 		this.login = login;
 		this.email = email;
 		this.password = password;
-		this.owner_type = ownertype;
 		this.name = name;
 		this.lastname = lastname;
 		this.telephone = telephone;
@@ -103,15 +106,6 @@ public class Owner {
 		this.name = name;
 	}
 	
-	
-
-	public String getOwner_type() {
-		return owner_type;
-	}
-
-	public void setOwner_type(String owner_type) {
-		this.owner_type = owner_type;
-	}
 
 	public String getLastname() {
 		return lastname;

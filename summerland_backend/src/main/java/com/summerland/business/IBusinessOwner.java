@@ -8,4 +8,6 @@ public interface IBusinessOwner {
 
 	ArrayList<Owner> getOwner();
 
+	Owner findById(long id);
+
 }

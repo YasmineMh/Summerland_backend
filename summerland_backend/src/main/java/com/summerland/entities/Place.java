@@ -11,6 +11,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "places")
 public class Place {
@@ -25,9 +27,11 @@ public class Place {
     private Collection<byte[]> images;
     
     @OneToMany(mappedBy="place",fetch=FetchType.LAZY)
+    @JsonManagedReference
 	private Collection<Recommandation> recommandations;
     
     @OneToMany(mappedBy="place",fetch=FetchType.LAZY)
+    @JsonManagedReference
    	private Collection<House> houses;
 
     

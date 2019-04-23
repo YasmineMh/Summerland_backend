@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "admins")
 public class Admin {
@@ -27,13 +30,16 @@ public class Admin {
 	private String admin_degree;
 	
 	@OneToMany(mappedBy="admin",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Admin> admins;
 	
 	@ManyToOne
 	@JoinColumn(name="ADMIN")
+	@JsonBackReference
 	private Admin admin;
 	
 	@OneToMany(mappedBy="admin",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Alert> alerts;
 
 	

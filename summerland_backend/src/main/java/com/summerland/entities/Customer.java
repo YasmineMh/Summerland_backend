@@ -11,6 +11,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name = "customers")
@@ -31,18 +33,23 @@ public class Customer {
 	private Byte[] image;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Reservation> reservations;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Review> reviews;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Reaction> reactions;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Message> messages;
 
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	private Collection<Recommandation> recommandations;
 	
 	

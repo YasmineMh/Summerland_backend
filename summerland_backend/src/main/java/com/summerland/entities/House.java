@@ -15,6 +15,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "houses")
@@ -39,22 +43,28 @@ public class House {
 	
 	@ManyToOne
 	@JoinColumn(name="PLACE")
+	@JsonBackReference
 	private Place place;
 	
+
 	@ManyToOne
 	@JoinColumn(name="OWNER")
+	@JsonBackReference
 	private Owner owner;
 	
 	@OneToMany(mappedBy="house",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	@Cascade(CascadeType.ALL)
 	private Collection<Review> reviews;
 	
 	@OneToMany(mappedBy="house",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	@Cascade(CascadeType.ALL)
 	private Collection<Reaction> reactions;
 	
 
 	@OneToMany(mappedBy="house",fetch=FetchType.LAZY)
+	@JsonManagedReference
 	@Cascade(CascadeType.ALL)
 	private Collection<Announcement> announcement;
 	
