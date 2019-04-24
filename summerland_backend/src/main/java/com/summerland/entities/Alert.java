@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -23,12 +24,10 @@ public class Alert {
 	
 	@ManyToOne
 	@JoinColumn(name="ADMIN")
-	@JsonBackReference
 	private Admin admin;
 	
 	@ManyToOne
 	@JoinColumn(name="OWNER")
-	@JsonBackReference
 	private Owner owner;
 
 	public Alert() {

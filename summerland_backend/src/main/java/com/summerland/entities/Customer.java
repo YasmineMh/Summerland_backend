@@ -11,11 +11,14 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
 @Table(name = "customers")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Customer {
 
 	@Id
@@ -33,23 +36,23 @@ public class Customer {
 	private Byte[] image;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Reservation> reservations;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Review> reviews;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Reaction> reactions;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Message> messages;
 
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Recommandation> recommandations;
 	
 	

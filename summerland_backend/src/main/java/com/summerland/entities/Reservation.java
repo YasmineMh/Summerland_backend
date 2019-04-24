@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -21,11 +22,10 @@ public class Reservation {
 	private String confirmation;
 
 	@ManyToOne
-	@JsonBackReference
 	@JoinColumn(name="CUSTOMER")
 	private Customer customer;
 	
-	@JsonBackReference
+
 	@ManyToOne
 	@JoinColumn(name="ANNOUNCEMENT")
 	private Announcement announcement;

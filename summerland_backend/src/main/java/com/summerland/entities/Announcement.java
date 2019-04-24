@@ -13,10 +13,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "announcement")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Announcement {
 
 	@Id
@@ -28,11 +31,10 @@ public class Announcement {
 	
 	@ManyToOne
 	@JoinColumn(name="HOUSE")
-	@JsonBackReference
 	private House house;
 	
 	@OneToMany(mappedBy="announcement",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Reservation> reservations;
 
 	public Announcement() {

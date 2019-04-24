@@ -18,10 +18,13 @@ import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "houses")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class House {
 
 	@Id
@@ -43,28 +46,26 @@ public class House {
 	
 	@ManyToOne
 	@JoinColumn(name="PLACE")
-	@JsonBackReference
 	private Place place;
 	
 
 	@ManyToOne
 	@JoinColumn(name="OWNER")
-	@JsonBackReference
 	private Owner owner;
 	
 	@OneToMany(mappedBy="house",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	@Cascade(CascadeType.ALL)
 	private Collection<Review> reviews;
 	
 	@OneToMany(mappedBy="house",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	@Cascade(CascadeType.ALL)
 	private Collection<Reaction> reactions;
 	
 
 	@OneToMany(mappedBy="house",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	@Cascade(CascadeType.ALL)
 	private Collection<Announcement> announcement;
 	
@@ -74,10 +75,9 @@ public class House {
 	
 	
 
-	public House(long id, String address, String description, double surface, boolean seaview, int age, double price,
+	public House(String address, String description, double surface, boolean seaview, int age, double price,
 			int rooms_number, Place place) {
 		super();
-		this.id = id;
 		this.address = address;
 		this.description = description;
 		this.surface = surface;

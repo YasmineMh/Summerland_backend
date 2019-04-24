@@ -14,10 +14,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "owners")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Owner {
 	
 	@Id
@@ -35,16 +38,16 @@ public class Owner {
 	private Byte[] image;
 	
 	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Message> messages;
 	
 	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
-	@JsonManagedReference
 	@Cascade(CascadeType.ALL)
+	@JsonIgnore
 	private Collection<House> houses;
 
 	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
-	@JsonManagedReference
+	@JsonIgnore
 	private Collection<Alert> alerts;
 	
 	

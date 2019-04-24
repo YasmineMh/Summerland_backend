@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "recommandations")
@@ -20,12 +21,10 @@ public class Recommandation {
 	private String comment;
 	
 	@ManyToOne
-	@JsonBackReference
 	@JoinColumn(name="CUSTOMER")
 	private Customer customer;
 	
 	@ManyToOne
-	@JsonBackReference
 	@JoinColumn(name="PLACE")
 	private Place place;
 
