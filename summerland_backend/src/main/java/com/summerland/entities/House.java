@@ -12,15 +12,15 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name = "houses")
@@ -30,19 +30,24 @@ public class House {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+	private String header_name;
 	private String address;
 	private String description;
 	private double surface;
 	private boolean seaview;
 	private int age;
 	private double price;
+	private String typeOfPaiement;
 	private int rooms_number;
-	
-	@Lob
-	private Byte[] image;
-	
-	@Lob
-    private Collection<byte[]> images;
+	private int garage_number;
+	private int bathrooms_number;
+	private String type;
+	private String[] details;
+
+	@Transient
+	private MultipartFile image;
+	private String pathimage;	
+
 	
 	@ManyToOne
 	@JoinColumn(name="PLACE")
@@ -63,32 +68,75 @@ public class House {
 	@Cascade(CascadeType.ALL)
 	private Collection<Reaction> reactions;
 	
-
 	@OneToMany(mappedBy="house",fetch=FetchType.LAZY)
 	@JsonIgnore
-	@Cascade(CascadeType.ALL)
-	private Collection<Announcement> announcement;
-	
+	private Collection<Reservation> reservations;
+
 	public House() {
 		super();
 	}
-	
-	
 
-	public House(String address, String description, double surface, boolean seaview, int age, double price,
-			int rooms_number, Place place) {
-		super();
+	public String getHeader_name() {
+		return header_name;
+	}
+
+	public void setHeader_name(String header_name) {
+		this.header_name = header_name;
+	}
+
+	public int getGarage_number() {
+		return garage_number;
+	}
+
+	public void setGarage_number(int garage_number) {
+		this.garage_number = garage_number;
+	}
+
+	public int getBathrooms_number() {
+		return bathrooms_number;
+	}
+
+	public String getTypeOfPaiement() {
+		return typeOfPaiement;
+	}
+
+	public void setTypeOfPaiement(String typeOfPaiement) {
+		this.typeOfPaiement = typeOfPaiement;
+	}
+
+	public void setBathrooms_number(int bathrooms_number) {
+		this.bathrooms_number = bathrooms_number;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+
+	public House(String header_name, String address, String description, double surface, boolean seaview, int age, double price, String typeOfPaiement, int rooms_number, int garage_number, int bathrooms_number, String type, Byte[] image, Collection<byte[]> images, Place place, Owner owner, Collection<Review> reviews, Collection<Reaction> reactions) {
+		this.header_name = header_name;
 		this.address = address;
 		this.description = description;
 		this.surface = surface;
 		this.seaview = seaview;
 		this.age = age;
 		this.price = price;
+		this.typeOfPaiement = typeOfPaiement;
 		this.rooms_number = rooms_number;
+		this.garage_number = garage_number;
+		this.bathrooms_number = bathrooms_number;
+		this.type = type;
 		this.place = place;
+		this.owner = owner;
+		this.reviews = reviews;
+		this.reactions = reactions;
+		//this.announcement = announcement;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -154,22 +202,6 @@ public class House {
 		this.rooms_number = rooms_number;
 	}
 
-	public Byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(Byte[] image) {
-		this.image = image;
-	}
-
-	public Collection<byte[]> getImages() {
-		return images;
-	}
-
-	public void setImages(Collection<byte[]> images) {
-		this.images = images;
-	}
-
 	public Place getPlace() {
 		return place;
 	}
@@ -202,18 +234,41 @@ public class House {
 		this.reactions = reactions;
 	}
 
-	public Collection<Announcement> getAnnouncement() {
-		return announcement;
+	public String[] getDetails() {
+		return details;
 	}
 
-	public void setAnnouncement(Collection<Announcement> announcement) {
-		this.announcement = announcement;
+	public void setDetails(String[] details) {
+		this.details = details;
+	}
+
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
+
+	public String getPathimage() {
+		return pathimage;
+	}
+
+	public void setPathimage(String pathimage) {
+		this.pathimage = pathimage;
+	}
+
+	public Collection<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Collection<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 
 
 
-	
-	
-	
+
+
 }

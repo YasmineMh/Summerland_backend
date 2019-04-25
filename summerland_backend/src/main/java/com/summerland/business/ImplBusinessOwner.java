@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.summerland.entities.House;
 import com.summerland.entities.Owner;
-import com.summerland.repositories.AnnouncementRepository;
 import com.summerland.repositories.OwnerRepository;
 
 @Service
@@ -31,5 +31,13 @@ public class ImplBusinessOwner implements IBusinessOwner{
 		    owner = op_owner.get();
 		return owner;
 	}
+
+	@Override
+	public void saveOwner(Owner owner) {
+		ownerRepository.save(owner);
+		
+	}
+
+	
 
 }

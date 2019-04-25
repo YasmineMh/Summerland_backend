@@ -27,19 +27,21 @@ public class Reservation {
 	
 
 	@ManyToOne
-	@JoinColumn(name="ANNOUNCEMENT")
-	private Announcement announcement;
+	@JoinColumn(name="HOUSE")
+	private House house;
 
 	public Reservation() {
 		super();
 	}
 
-	public Reservation(String confirmation, Customer customer, Announcement announcement) {
+
+	public Reservation(String confirmation, Customer customer, House house) {
 		super();
 		this.confirmation = confirmation;
 		this.customer = customer;
-		this.announcement = announcement;
+		this.house = house;
 	}
+
 
 	public long getId() {
 		return id;
@@ -65,12 +67,15 @@ public class Reservation {
 		this.customer = customer;
 	}
 
-	public Announcement getAnnouncement() {
-		return announcement;
+
+	public House getHouse() {
+		return house;
 	}
 
-	public void setAnnouncement(Announcement announcement) {
-		this.announcement = announcement;
+
+	public void setHouse(House house) {
+		this.house = house;
 	}
+
 
 }

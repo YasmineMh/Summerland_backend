@@ -8,4 +8,8 @@ public interface IBusinessHouse {
 	public ArrayList<House> getHouses();
 
 	public void saveHouse(House house);
+	
+	ArrayList<House> listHousesOfOwner(Long id);
+	
+
 }
